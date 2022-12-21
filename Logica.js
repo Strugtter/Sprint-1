@@ -30,12 +30,13 @@ const cantBilletes = [
   { billetes10: "", total: "" },
   { billetes20: "", total: "" },
   { billetes50: "", total: "" },
-  { billetes100: "0", total: "" },
+  { billetes100: "", total: "" },
 ];
 
 // Ingresar y cerrar sesión
 
-let usuario; // Borrar al final
+
+
 
 function ingresar(){
 
@@ -45,7 +46,6 @@ function ingresar(){
     if (login === undefined){
       alert("Usuario no encontrado")
     }  else {
-      usuario = login;
     } 
     if(login.Documento === userLogin && login.contrasena === userPass && login.tipoUsuario == "1") {
       window.location = 'Admin.html'
@@ -139,6 +139,7 @@ function leerNumero() {
   document.getElementById("b100").value = "";
 
   // Almacen en el array de Cantidad de billetes.
+
   cantBilletes[0].billetes5 = Billetes5;
   cantBilletes[1].billetes10 = Billetes10;
   cantBilletes[2].billetes20 = Billetes20;
@@ -179,15 +180,16 @@ function leerNumero() {
   localStorage.setItem("Total", sumaTotal);
 
 }
-
 // Lectura del Local storage
+
 
 leerLocalStorage();
 
+
 function leerLocalStorage (){
 
-      localStorage.getItem("cincoMil") == null ? Billetes5 = 0 : Billetes5 =  parseInt(localStorage.getItem("cincoMil"));
-      localStorage.getItem("diezMil") ? Billetes10 = parseInt(localStorage.getItem("diezMil")) : Billetes10 = 0 ;
+      localStorage.getItem("cincoMil") == null? Billetes5 = 0 : Billetes5 =  parseInt(localStorage.getItem("cincoMil"));
+      localStorage.getItem("diezMil") ==null ? Billetes10 = 0 : Billetes10 = parseInt(localStorage.getItem("diezMil"));
       localStorage.getItem("veinteMil")==null ? Billetes20 = 0 : Billetes20 = parseInt(localStorage.getItem("veinteMil")) ;
       localStorage.getItem("cincuentaMil")==null ? Billetes50 = 0 : Billetes50 = parseInt(localStorage.getItem("cincuentaMil"));
       localStorage.getItem("cienMil")==null ? Billetes100=0 : Billetes100 = parseInt(localStorage.getItem("cienMil")); 
@@ -209,11 +211,96 @@ function leerLocalStorage (){
       document.getElementById("CT10").value=cantBilletes[1].total;    
       document.getElementById("CT20").value=cantBilletes[2].total;    
       document.getElementById("CT50").value=cantBilletes[3].total;    
-      document.getElementById("CT100").value=cantBilletes[4].total;        
- 
+      document.getElementById("CT100").value=cantBilletes[4].total;      
 }
 
 
+
+
+function retirar(){
+
+  if (parseInt(document.getElementById("retiro").value) > sumaTotal) {
+    console.log(`actualmente se puede entregar unicamente ${sumaTotal} pesos`);
+    alert(`actualmente se puede entregar unicamente ${sumaTotal} pesos`)
+    document.getElementById("retiro").value = sumaTotal;
+   }
+
+   let cantidadBilletes100 = Math.floor(parseInt(document.getElementById("retiro").value) / 100000);
+if (
+  cantidadBilletes100 >= Billetes100 &&
+  Billetes100 != 0 &&
+  document.getElementById("retiro").value != 0
+) {
+  cantidadBilletes100 = Billetes100;
+  document.getElementById("retiro").value -= 100000 * cantidadBilletes100;
+  console.log(`se entregan ${cantidadBilletes100} billetes de 100 mil`);
+  Billetes100 -= cantidadBilletes100;
+} else if (Billetes100 != 0 && document.getElementById("retiro").value != 0) {
+  document.getElementById("retiro").value -= 100000 * cantidadBilletes100;
+  console.log(`se entregan ${cantidadBilletes100} billetes de 100 mil`);
+  Billetes100 -= cantidadBilletes100;
+}
+
+let cantidadBilletes50 = Math.floor(parseInt(document.getElementById("retiro").value) / 50000);
+if (
+  cantidadBilletes50 >= Billetes50 &&
+  Billetes50 != 0 &&
+  document.getElementById("retiro").value != 0
+) {
+  cantidadBilletes50 = Billetes50;
+  document.getElementById("retiro").value -= 50000 * cantidadBilletes50;
+  console.log(`se entregan ${cantidadBilletes50} billetes de 50 mil`);
+  Billetes50 -= cantidadBilletes50;
+} else if (Billetes50 != 0 && document.getElementById("retiro").value != 0) {
+  document.getElementById("retiro").value -= 50000 * cantidadBilletes50;
+  console.log(`se entregan ${cantidadBilletes50} billetes de 50 mil`);
+  Billetes50 -= cantidadBilletes50;
+}
+
+let cantidadBilletes20 = Math.floor(parseInt(document.getElementById("retiro").value) / 20000);
+if (
+  cantidadBilletes20 >= Billetes20 &&
+  Billetes20 != 0 &&
+  document.getElementById("retiro").value != 0
+) {
+  cantidadBilletes20 = Billetes20;
+  document.getElementById("retiro").value -= 20000 * cantidadBilletes20;
+  console.log(`se entregan ${cantidadBilletes20} billetes de 20 mil`);
+  Billetes20 -= cantidadBilletes20;
+} else if (Billetes20 != 0 && document.getElementById("retiro").value != 0) {
+  document.getElementById("retiro").value -= 20000 * cantidadBilletes20;
+  console.log(`se entregan ${cantidadBilletes20} billetes de 20 mil`);
+  Billetes20 -= cantidadBilletes20;
+}
+
+let cantidadBilletes10 = Math.floor(parseInt(document.getElementById("retiro").value) / 10000);
+if (
+  cantidadBilletes10 >= Billetes10 &&
+  Billetes10 != 0 &&
+  document.getElementById("retiro").value != 0
+) {
+  cantidadBilletes10 = Billetes10;
+  document.getElementById("retiro").value -= 10000 * cantidadBilletes10;
+  console.log(`se entregan ${cantidadBilletes10} billetes de 10 mil`);
+  Billetes10 -= cantidadBilletes10;
+} else if (Billetes10 != 0 && document.getElementById("retiro").value != 0) {
+  document.getElementById("retiro").value -= 10000 * cantidadBilletes10;
+  console.log(`se entregan ${cantidadBilletes10} billetes de 10 mil`);
+  Billetes10 -= cantidadBilletes10;
+}
+
+let cantidadBilletes5 = Math.floor(parseInt(document.getElementById("retiro").value) / 5000);
+if (cantidadBilletes5 >= Billetes5 && Billetes5 != 0 && document.getElementById("retiro").value != 0) {
+  cantidadBilletes5 = Billetes5;
+  document.getElementById("retiro").value -= 5000 * cantidadBilletes5;
+  console.log(`se entregan ${cantidadBilletes5} billetes de 5 mil`);
+  Billetes5 -= cantidadBilletes5;
+} else if (Billetes5 != 0 && document.getElementById("retiro").value != 0) {
+  document.getElementById("retiro").value -= 5000 * cantidadBilletes5;
+  console.log(`se entregan ${cantidadBilletes5} billetes de 5 mil`);
+  Billetes5 -= cantidadBilletes5;
+}
+}
 
 
 
