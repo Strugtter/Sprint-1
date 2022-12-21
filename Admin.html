@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./EstilosIndex.css" />
+    <title>Cajero</title>
+  </head>
+  <body>
+    <header>
+      <h1>Bienvenido - Admin</h1>
+      <button type="button" class="btn" onclick="cerrarSesion()">
+        Cerrar Sesión
+      </button>
+    </header>
+    <section class="seccion-main">
+      <div class="content">
+        <div class="box">
+          <h3>Cajero-ATM</h3>
+          <div>
+            <label for="">Total: </label>
+            <input type="text" id="CT">
+            <label for=""> pesos </label>
+          </div>
+          <div>
+            <label for="">Billetes de 5 mil</label>
+            <input type="text" id="C5">
+            <label for=""> El valor es:  </label>
+            <input type="text" id="CT5">
+            <label for=""> pesos </label>
+          </div>
+          <div>
+            <label for="">Billetes de 10 mil</label>
+            <input type="text" id="C10">
+            <label for=""> El valor es:  </label>
+            <input type="text" id="CT10">
+            <label for=""> pesos </label>
+          </div>
+          <div>
+            <label for="">Billetes de 20 mil</label>
+            <input type="text" id="C20">
+            <label for=""> El valor es:  </label>
+            <input type="text" id="CT20">
+            <label for=""> pesos </label>
+          </div>
+          <div>
+            <label for="">Billetes de 50 mil</label>
+            <input type="text" id="C50">
+            <label for=""> El valor es:  </label>
+            <input type="text" id="CT50">
+            <label for=""> pesos </label>
+          </div>
+          <div>
+            <label for="">Billetes de 100 mil</label>
+            <input type="text" id="C100">
+            <label for=""> El valor es:  </label>
+            <input type="text" id="CT100">
+            <label for=""> pesos </label>
+          </div>   
+          <h3>Ingrese la cantidad de billes a ingresar por cada denominación </h3>
+          <form action="">
+            <div class="input-box">
+              <input type="number" placeholder="Billetes de 5 mil" class="input-control" id="b5"/>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Billetes de 10 mil" class="input-control" id="b10"/>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Billetes de 20 mil" class="input-control" id="b20"/>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Billetes de 50 mil" class="input-control" id="b50"/>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Billetes de 100 mil" class="input-control" id="b100"/>
+            </div>         
+            <input type="button" value="enviar" onclick="leerNumero()" />
+          </form>
+        </div>
+
+
+      </div>
+    </section>
+    <script src="Logica.js"></script>
+  </body>
+</html>

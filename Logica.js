@@ -1,170 +1,217 @@
-
 const Usuarios = [
-    {nombre:'Andres', Documento:'1061753379', contrasena:'Cam109', tipoUsuario:'2'},
-    {nombre:'Camilo', Documento:'1061753378', contrasena:'Cam108', tipoUsuario:'1'},
-    {nombre:'Kelly', Documento:'1061753377', contrasena:'Cam107', tipoUsuario:'2'},
-    {nombre:'Amparo', Documento:'1061753376', contresena:'Cam106', tipoUsuario:'1'}
-]
+  {
+    nombre: "Andres",
+    Documento: "1061753379",
+    contrasena: "Cam109",
+    tipoUsuario: "2",
+  },
+  {
+    nombre: "Camilo",
+    Documento: "1061753378",
+    contrasena: "Cam108",
+    tipoUsuario: "1",
+  },
+  {
+    nombre: "Kelly",
+    Documento: "1061753377",
+    contrasena: "Cam107",
+    tipoUsuario: "2",
+  },
+  {
+    nombre: "Amparo",
+    Documento: "1061753376",
+    contrasena: "Cam106",
+    tipoUsuario: "1",
+  },
+];
 
+const cantBilletes = [
+  { billetes5: "", total: "" },
+  { billetes10: "", total: "" },
+  { billetes20: "", total: "" },
+  { billetes50: "", total: "" },
+  { billetes100: "0", total: "" },
+];
 
-const cantBilletes = [    
-    {billetes5: '', total:''},
-    {billetes10:'', total:''},
-    {billetes20:'', total:''},
-    {billetes50:'', total:''},
-    {billetes100:'',total:''}
-]
+// Ingresar y cerrar sesión
 
-// Datos registrados
-const userLogin = '1061753378';
-const userPass = 'Cam108';
+let usuario; // Borrar al final
 
-const login = Usuarios.find(e => e.Documento===userLogin);
-login === undefined ? console.log("Usuario no encontrado"): console.log(login);
+function ingresar(){
 
-
-// Lógica para cargar el cajero automatico.
-
-
-let cantBilletes5;
-let cantBilletes10;
-let cantBilletes20;
-let cantBilletes50;
-let cantBilletes100;
-
-
-function leerNumber(){
-let Billetes5 = document.getElementById('b5').value;
-cantBilletes5 = Billetes5;
-let Billetes10 = document.getElementById('b10').value;
-cantBilletes10 = Billetes10;
-let Billetes20 = document.getElementById('b20').value;
-cantBilletes20 = Billetes20;
-let Billetes50 = document.getElementById('b50').value;
-cantBilletes50 = Billetes50;
-let Billetes100 = document.getElementById('b100').value;
-cantBilletes100 = Billetes100;
+    let userLogin = document.getElementById("usuario").value;
+    let userPass = document.getElementById("pass").value;
+    const login = Usuarios.find((e) => e.Documento === userLogin);
+    if (login === undefined){
+      alert("Usuario no encontrado")
+    }  else {
+      usuario = login;
+    } 
+    if(login.Documento === userLogin && login.contrasena === userPass && login.tipoUsuario == "1") {
+      window.location = 'Admin.html'
+    }else if(login.Documento === userLogin && login.contrasena === userPass && login.tipoUsuario == "2") {
+      window.location = 'cliente.html'
+    }else {
+      alert('Datos incorrectos')
+    }
 }
 
-console.log(cantBilletes10);
+function cerrarSesion(){
+    window.location = "Ingresar.html"
+}
 
+///////////---------------------------------////////////////////////
 
+// Carga del cajero automático
 
+let Billetes5;
+let Billetes10;
+let Billetes20;
+let Billetes50;
+let Billetes100;
 
-if (login.tipoUsuario === '1'){
+function leerNumero() {
 
-    cantBilletes[0].billetes5 = cantBilletes5;
-    cantBilletes[1].billetes10 = cantBilletes10 ;
-    cantBilletes[2].billetes20 = cantBilletes20;
-    cantBilletes[3].billetes50 = cantBilletes50;
-    cantBilletes[4].billetes100 = cantBilletes100;    
+  //Captura de las cantidades de cada billete.
 
-    cantBilletes[0].total = cantBilletes5 * 5000;
-    cantBilletes[1].total = cantBilletes10 * 10000;
-    cantBilletes[2].total = cantBilletes20 * 20000;
-    cantBilletes[3].total = cantBilletes50 * 50000;
-    cantBilletes[4].total = cantBilletes100 * 100000;
+  if (localStorage.getItem("cincoMil")){
+    if(document.getElementById("b5").value != null && document.getElementById("b5").value != 0 ){
+      Billetes5 += parseInt (document.getElementById("b5").value);
+    } else if (document.getElementById("b5").value == null){
+      Billetes5=0;
+    }
+  } 
+
+  if (localStorage.getItem("diezMil")){
+    if(document.getElementById("b10").value != null && document.getElementById("b10").value != 0 ){
+      Billetes10 += parseInt (document.getElementById("b10").value);
+    } else if (document.getElementById("b10").value == null){
+      Billetes10=0;
+    }
+  } 
+
+  if (localStorage.getItem("veinteMil")){
+    if(document.getElementById("b20").value != null && document.getElementById("b20").value != 0 ){
+      Billetes20 += parseInt (document.getElementById("b20").value);
+    } else if (document.getElementById("b20").value == null){
+      Billetes20=0;
+    }
+  }
+  
+  if (localStorage.getItem("cincuentaMil")){
+    if(document.getElementById("b50").value != null && document.getElementById("b50").value != 0 ){
+      Billetes50 += parseInt (document.getElementById("b50").value);
+    } else if (document.getElementById("b50").value == null){
+      Billetes50=0;
+    }
+  } 
+
+  if (localStorage.getItem("cienMil")){
+    if(document.getElementById("b100").value != null && document.getElementById("b100").value != 0 ){
+      Billetes100 += parseInt (document.getElementById("b100").value);
+    } else if (document.getElementById("b100").value == null){
+      Billetes100=0;
+    }
+  } 
+
+  // Mostrar el valor obtenido de la cantidad
+
+  document.getElementById("C5").value = Billetes5;
+  document.getElementById("C10").value = Billetes10;
+  document.getElementById("C20").value = Billetes20;
+  document.getElementById("C50").value = Billetes50;
+  document.getElementById("C100").value = Billetes100;
+
+  // Almacenamiento en Local Storage
+
+  localStorage.setItem("cincoMil",Billetes5 );
+  localStorage.setItem("diezMil",Billetes10);
+  localStorage.setItem("veinteMil",Billetes20);
+  localStorage.setItem("cincuentaMil",Billetes50);
+  localStorage.setItem("cienMil",Billetes100);
+
+  // Limpiar valores
+
+  document.getElementById("b5").value = "";
+  document.getElementById("b10").value = "";
+  document.getElementById("b20").value = "";
+  document.getElementById("b50").value = "";
+  document.getElementById("b100").value = "";
+
+  // Almacen en el array de Cantidad de billetes.
+  cantBilletes[0].billetes5 = Billetes5;
+  cantBilletes[1].billetes10 = Billetes10;
+  cantBilletes[2].billetes20 = Billetes20;
+  cantBilletes[3].billetes50 = Billetes50;
+  cantBilletes[4].billetes100 = Billetes100;
+
+  // Calculo del valor por billete.
+
+  cantBilletes[0].total = Billetes5 * 5000;
+  document.getElementById("CT5").value = cantBilletes[0].total;
+  localStorage.setItem("CT5",cantBilletes[0].total);
+
+  cantBilletes[1].total = Billetes10 * 10000;
+  document.getElementById("CT10").value = cantBilletes[1].total;
+  localStorage.setItem("CT10",cantBilletes[1].total);
+
+  cantBilletes[2].total = Billetes20 * 20000;
+  document.getElementById("CT20").value = cantBilletes[2].total;
+  localStorage.setItem("CT20",cantBilletes[2].total);
+
+  cantBilletes[3].total = Billetes50 * 50000;
+  document.getElementById("CT50").value = cantBilletes[3].total;
+  localStorage.setItem("CT50",cantBilletes[3].total);
+
+  cantBilletes[4].total = Billetes100 * 100000;
+  document.getElementById("CT100").value = cantBilletes[4].total;
+  localStorage.setItem("CT100",cantBilletes[4].total);
+
+  const sumaTotal = cantBilletes.reduce(
+    (inicial, valorActual) =>
+      typeof valorActual.total === "number"
+        ? inicial + valorActual.total
+        : inicial,
+    0
+  );
+
+  document.getElementById("CT").value = sumaTotal;
+  localStorage.setItem("Total", sumaTotal);
 
 }
 
-// Cantidad total en el cajero
+// Lectura del Local storage
 
-const sumaTotal =  cantBilletes.reduce((inicial, valorActual) => (typeof valorActual.total === "number" ? inicial + valorActual.total:inicial), 0);
-console.log('total: ' + sumaTotal);
+leerLocalStorage();
+
+function leerLocalStorage (){
+
+      localStorage.getItem("cincoMil") == null ? Billetes5 = 0 : Billetes5 =  parseInt(localStorage.getItem("cincoMil"));
+      localStorage.getItem("diezMil") ? Billetes10 = parseInt(localStorage.getItem("diezMil")) : Billetes10 = 0 ;
+      localStorage.getItem("veinteMil")==null ? Billetes20 = 0 : Billetes20 = parseInt(localStorage.getItem("veinteMil")) ;
+      localStorage.getItem("cincuentaMil")==null ? Billetes50 = 0 : Billetes50 = parseInt(localStorage.getItem("cincuentaMil"));
+      localStorage.getItem("cienMil")==null ? Billetes100=0 : Billetes100 = parseInt(localStorage.getItem("cienMil")); 
+      localStorage.getItem("Total")==null ? sumaTotal=0 : sumaTotal = parseInt(localStorage.getItem("Total")); 
+      localStorage.getItem("CT5")==null ? cantBilletes[0].total=0 : cantBilletes[0].total = parseInt(localStorage.getItem("CT5")); 
+      localStorage.getItem("CT10")==null ? cantBilletes[1].total=0 : cantBilletes[1].total = parseInt(localStorage.getItem("CT10"));
+      localStorage.getItem("CT20")==null ? cantBilletes[2].total=0 : cantBilletes[2].total = parseInt(localStorage.getItem("CT20"));
+      localStorage.getItem("CT50")==null ? cantBilletes[3].total=0 : cantBilletes[3].total = parseInt(localStorage.getItem("CT50"));
+      localStorage.getItem("CT100")==null ? cantBilletes[4].total=0 : cantBilletes[4].total = parseInt(localStorage.getItem("CT100"));
 
 
-if (sumaTotal === 0 && login.tipoUsuario === '2'){
-    console.log("Cajero en mantenimiento, vuelva pronto")
+      document.getElementById("C5").value = Billetes5;
+      document.getElementById("C10").value = Billetes10;
+      document.getElementById("C20").value = Billetes20;
+      document.getElementById("C50").value = Billetes50;
+      document.getElementById("C100").value = Billetes100; 
+      document.getElementById("CT").value=sumaTotal;
+      document.getElementById("CT5").value=cantBilletes[0].total;   
+      document.getElementById("CT10").value=cantBilletes[1].total;    
+      document.getElementById("CT20").value=cantBilletes[2].total;    
+      document.getElementById("CT50").value=cantBilletes[3].total;    
+      document.getElementById("CT100").value=cantBilletes[4].total;        
+ 
 }
-
-
-
-// Cantidad de dinero en el cajero por cada valor de billete.
-
-cantBilletes.forEach((elemento, index) => console.log(elemento.total));
-
-// Tipo de usuario cliente.
-
-let retiro = 75000;
-
-if (retiro>sumaTotal){
-    console.log(`actualmente se puede entregar unicamente ${sumaTotal} pesos`);
-    retiro = sumaTotal;
-}
-
-let cantidadBilletes100 = Math.floor(retiro/100000);
-if (cantidadBilletes100 >= cantBilletes100 && cantBilletes100 != 0 && retiro != 0){
-    cantidadBilletes100 = cantBilletes100;
-    retiro -=100000 * cantidadBilletes100;
-    console.log(`se entregan ${cantidadBilletes100} billetes de 100 mil`);
-    cantBilletes100 -= cantidadBilletes100;
-} else if (cantBilletes100 != 0 && retiro != 0) {
-    retiro -=100000 * cantidadBilletes100;
-    console.log(`se entregan ${cantidadBilletes100} billetes de 100 mil`);
-    cantBilletes100 -= cantidadBilletes100;
-}
-
-let cantidadBilletes50 = Math.floor(retiro/50000);
-if ( cantidadBilletes50 >= cantBilletes50 && cantBilletes50 != 0 && retiro != 0){
-    cantidadBilletes50 = cantBilletes50;
-    retiro -=50000 * cantidadBilletes50;
-    console.log(`se entregan ${cantidadBilletes50} billetes de 50 mil`);
-    cantBilletes50-=cantidadBilletes50;
-} else if (cantBilletes50 != 0 && retiro != 0) {
-    retiro -=50000 * cantidadBilletes50;
-    console.log(`se entregan ${cantidadBilletes50} billetes de 50 mil`);
-    cantBilletes50-=cantidadBilletes50;
-} 
-
-let cantidadBilletes20 = Math.floor(retiro/20000);
-if ( cantidadBilletes20 >= cantBilletes20  && cantBilletes20 != 0 && retiro != 0){
-    cantidadBilletes20 = cantBilletes20; 
-    retiro -=20000* cantidadBilletes20;
-    console.log(`se entregan ${cantidadBilletes20} billetes de 20 mil`);
-    cantBilletes20-= cantidadBilletes20;    
-} else if (cantBilletes20 != 0 && retiro != 0) {
-    retiro -=20000* cantidadBilletes20;
-    console.log(`se entregan ${cantidadBilletes20} billetes de 20 mil`);
-    cantBilletes20-= cantidadBilletes20;
-}
-
-let cantidadBilletes10 = Math.floor(retiro/10000);
-if (cantidadBilletes10>=cantBilletes10 && cantBilletes10!=0 && retiro != 0){
-    cantidadBilletes10 = cantBilletes10; 
-    retiro -=10000* cantidadBilletes10;
-    console.log(`se entregan ${cantidadBilletes10} billetes de 10 mil`); 
-    cantBilletes10 -= cantidadBilletes10;
-} else if (cantBilletes10 != 0 && retiro != 0) {
-    retiro -=10000* cantidadBilletes10;
-    console.log(`se entregan ${cantidadBilletes10} billetes de 10 mil`);
-    cantBilletes10 -= cantidadBilletes10;
-}
-
-
-let cantidadBilletes5 = Math.floor(retiro/5000);
-if ( cantidadBilletes5 >=cantBilletes5  && cantBilletes5 != 0 && retiro != 0){
-    cantidadBilletes5 = cantBilletes5
-    retiro -=5000* cantidadBilletes5;
-    console.log(`se entregan ${cantidadBilletes5} billetes de 5 mil`);
-    cantBilletes5-=cantidadBilletes5;
-}  else if (cantBilletes5 != 0 && retiro != 0) {
-    retiro -=5000* cantidadBilletes5;
-    console.log(`se entregan ${cantidadBilletes5} billetes de 5 mil`);
-    cantBilletes5-=cantidadBilletes5;
-}
-
-
-
-console.log(cantBilletes10);
-console.log(cantBilletes5);
-
-
-// if (login.tipoUsuario === '2'){
-//     if (cantRetiro >= sumaTotal){
-//       //  retiro = cantRetiro - sumaTotal;
-//     }
-// }
-
 
 
 
