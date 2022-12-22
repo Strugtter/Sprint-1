@@ -322,6 +322,15 @@ if (cantidadBilletes5 >= Billetes5 && Billetes5 != 0 && document.getElementById(
 }
   let sumaAll = parseInt(localStorage.getItem("CT5")) + parseInt(localStorage.getItem("CT10")) + parseInt(localStorage.getItem("CT20")) + parseInt(localStorage.getItem("CT50")) + parseInt(localStorage.getItem("CT100"));
   localStorage.setItem("Total", sumaAll);
+
+  console.log("En billetes de 5 mil queda: " + localStorage.getItem("CT5"));
+  console.log("En billetes de 10 mil queda: " + localStorage.getItem("CT10"));
+  console.log("En billetes de 20 mil queda: " + localStorage.getItem("CT20"));
+  console.log("En billetes de 50 mil queda: " + localStorage.getItem("CT50"));
+  console.log("En billetes de 100 mil queda: " + localStorage.getItem("CT100"));
+
+  alert("Retiro realizado");
+  cerrarSesion();
 }
 
 
